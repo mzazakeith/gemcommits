@@ -19,8 +19,7 @@ export const generateCommitMessage = async (
 	completions: number,
 	maxLength: number,
 	type: CommitType,
-	timeout: number,
-	proxy?: string
+	timeout: number
 ) => {
 	try {
 		// Initialize GoogleGenAI with API key
