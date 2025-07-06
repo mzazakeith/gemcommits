@@ -1,7 +1,7 @@
 import path from 'path';
 import { testSuite, expect } from 'manten';
 import {
-	assertOpenAiToken,
+	assertGeminiToken,
 	createFixture,
 	createGit,
 	files,
@@ -9,7 +9,7 @@ import {
 
 export default testSuite(({ describe }) => {
 	describe('Git hook', ({ test }) => {
-		assertOpenAiToken();
+		assertGeminiToken();
 
 		test('errors when not in Git repo', async () => {
 			const { fixture, aicommits } = await createFixture(files);
