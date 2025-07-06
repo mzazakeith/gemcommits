@@ -33,28 +33,18 @@ export const generateCommitMessage = async (
 		const generationConfig = {
 			temperature: 0.7,
 			topP: 1,
-			maxOutputTokens: 200,
+			maxOutputTokens: Math.min(maxLength + 10, 100), // Force short responses
 			candidateCount: completions,
 		};
 
-		// For Gemini 2.5 models, disable thinking for faster responses
-		const config = model.includes('2.5') ? {
-			generationConfig,
-			systemInstruction,
-			// Disable thinking for speed
-			thinkingConfig: {
-				thinkingBudget: 0,
-			},
-		} : {
-			generationConfig,
-			systemInstruction,
-		};
+		// System instruction will be passed in the config
 
 		// Generate content using the models.generateContent API
 		const response = await genAI.models.generateContent({
 			model,
 			contents: [
 				{
+					role: 'user',
 					parts: [
 						{
 							text: diff
@@ -62,15 +52,14 @@ export const generateCommitMessage = async (
 					]
 				}
 			],
-			...config
+			config: {
+				...generationConfig,
+				systemInstruction,
+				...(model.includes('2.5') ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+			}
 		});
 
-		// Debug: Log the actual response for troubleshooting
-		console.log('=== GEMINI API RESPONSE DEBUG ===');
-		console.log('System instruction:', systemInstruction);
-		console.log('Response candidates:', response.candidates?.length);
-		console.log('First candidate:', response.candidates?.[0]?.content?.parts?.[0]?.text?.substring(0, 200));
-		console.log('=== END DEBUG ===');
+
 		
 		if (!response.candidates || response.candidates.length === 0) {
 			throw new KnownError('No commit messages were generated. Try again.');
