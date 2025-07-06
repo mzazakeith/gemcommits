@@ -19,14 +19,14 @@
    npm install -g aicommits
    ```
 
-2. Retrieve your API key from [OpenAI](https://platform.openai.com/account/api-keys)
+2. Retrieve your API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
 
-   > Note: If you haven't already, you'll have to create an account and set up billing.
+   > Note: If you haven't already, you'll have to create a Google account and get access to the Gemini API.
 
 3. Set the key so aicommits can use it:
 
    ```sh
-   aicommits config set OPENAI_KEY=<your token>
+   aicommits config set GEMINI_KEY=<your token>
    ```
 
    This will create a `.aicommits` file in your home directory.
@@ -134,13 +134,13 @@ aicommits config get <key>
 For example, to retrieve the API key, you can use:
 
 ```sh
-aicommits config get OPENAI_KEY
+aicommits config get GEMINI_KEY
 ```
 
 You can also retrieve multiple configuration options at once by separating them with spaces:
 
 ```sh
-aicommits config get OPENAI_KEY generate
+aicommits config get GEMINI_KEY generate
 ```
 
 ### Setting a configuration value
@@ -154,22 +154,22 @@ aicommits config set <key>=<value>
 For example, to set the API key, you can use:
 
 ```sh
-aicommits config set OPENAI_KEY=<your-api-key>
+aicommits config set GEMINI_KEY=<your-api-key>
 ```
 
 You can also set multiple configuration options at once by separating them with spaces, like
 
 ```sh
-aicommits config set OPENAI_KEY=<your-api-key> generate=3 locale=en
+aicommits config set GEMINI_KEY=<your-api-key> generate=3 locale=en
 ```
 
 ### Options
 
-#### OPENAI_KEY
+#### GEMINI_KEY
 
 Required
 
-The OpenAI API key. You can retrieve it from [OpenAI API Keys page](https://platform.openai.com/account/api-keys).
+The Gemini API key. You can retrieve it from [Google AI Studio API Keys page](https://aistudio.google.com/app/apikey).
 
 #### locale
 
@@ -197,15 +197,19 @@ aicommits config set proxy=
 
 #### model
 
-Default: `gpt-3.5-turbo`
+Default: `gemini-2.5-flash`
 
-The Chat Completions (`/v1/chat/completions`) model to use. Consult the list of models available in the [OpenAI Documentation](https://platform.openai.com/docs/models/model-endpoint-compatibility).
+The Gemini model to use. Supported models include:
+- `gemini-2.5-flash` (default) - Fast and efficient
+- `gemini-2.5-pro` - More capable but slower
+- `gemini-1.5-flash` - Previous generation fast model
+- `gemini-1.5-pro` - Previous generation capable model
 
-> Tip: If you have access, try upgrading to [`gpt-4`](https://platform.openai.com/docs/models/gpt-4) for next-level code analysis. It can handle double the input size, but comes at a higher cost. Check out OpenAI's website to learn more.
+> Tip: `gemini-2.5-pro` provides more sophisticated code analysis but may be slower and more expensive than `gemini-2.5-flash`.
 
 #### timeout
 
-The timeout for network requests to the OpenAI API in milliseconds.
+The timeout for network requests to the Gemini API in milliseconds.
 
 Default: `10000` (10 seconds)
 
@@ -241,7 +245,7 @@ aicommits config set type=
 
 ## How it works
 
-This CLI tool runs `git diff` to grab all your latest code changes, sends them to OpenAI's GPT-3, then returns the AI generated commit message.
+This CLI tool runs `git diff` to grab all your latest code changes, sends them to Google's Gemini AI, then returns the AI generated commit message.
 
 Video coming soon where I rebuild it from scratch to show you how to easily build your own CLI tools powered by AI.
 
