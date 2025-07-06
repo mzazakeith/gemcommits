@@ -65,9 +65,21 @@ export const generateCommitMessage = async (
 		}
 
 		// Extract text from all candidates
-		const messages = response.candidates
-			.filter((candidate: any) => candidate.content?.parts?.[0]?.text)
-			.map((candidate: any) => sanitizeMessage(candidate.content!.parts![0].text!));
+		interface Candidate {
+			content?: {
+				parts?: Array<{
+					text?: string;
+				}>;
+			};
+		}
+
+		interface Response {
+			candidates?: Candidate[];
+		}
+
+		const messages = (response as Response).candidates
+			?.filter((candidate: Candidate) => candidate.content?.parts?.[0]?.text)
+			.map((candidate: Candidate) => sanitizeMessage(candidate.content!.parts![0].text!)) || [];
 
 		if (messages.length === 0) {
 			throw new KnownError('No valid commit messages were generated. Try again.');
