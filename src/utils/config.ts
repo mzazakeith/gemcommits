@@ -2,7 +2,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import os from 'os';
 import ini from 'ini';
-import type { TiktokenModel } from '@dqbd/tiktoken';
 import { fileExists } from './fs.js';
 import { KnownError } from './error.js';
 
@@ -21,14 +20,14 @@ const parseAssert = (name: string, condition: any, message: string) => {
 };
 
 const configParsers = {
-	OPENAI_KEY(key?: string) {
+	GEMINI_KEY(key?: string) {
 		if (!key) {
 			throw new KnownError(
-				'Please set your OpenAI API key via `aicommits config set OPENAI_KEY=<your token>`'
+				'Please set your Gemini API key via `aicommits config set GEMINI_KEY=<your token>`'
 			);
 		}
-		parseAssert('OPENAI_KEY', key.startsWith('sk-'), 'Must start with "sk-"');
-		// Key can range from 43~51 characters. There's no spec to assert this.
+		parseAssert('GEMINI_KEY', key.length > 0, 'Cannot be empty');
+		// Gemini API keys don't have a specific prefix requirement like OpenAI
 
 		return key;
 	},
@@ -82,10 +81,26 @@ const configParsers = {
 	},
 	model(model?: string) {
 		if (!model || model.length === 0) {
-			return 'gpt-3.5-turbo';
+			return 'gemini-2.5-flash';
 		}
 
-		return model as TiktokenModel;
+		// Validate that it's a supported Gemini model
+		const supportedModels = [
+			'gemini-2.5-flash',
+			'gemini-2.5-pro',
+			'gemini-1.5-flash',
+			'gemini-1.5-pro'
+		];
+		
+		if (!supportedModels.includes(model)) {
+			parseAssert(
+				'model',
+				false,
+				`Must be one of: ${supportedModels.join(', ')}`
+			);
+		}
+
+		return model;
 	},
 	timeout(timeout?: string) {
 		if (!timeout) {
