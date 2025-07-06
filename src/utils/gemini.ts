@@ -19,8 +19,7 @@ export const generateCommitMessage = async (
 	completions: number,
 	maxLength: number,
 	type: CommitType,
-	timeout: number,
-	proxy?: string
+	timeout: number
 ) => {
 	try {
 		// Initialize GoogleGenAI with API key
@@ -55,7 +54,7 @@ export const generateCommitMessage = async (
 			config: {
 				...generationConfig,
 				systemInstruction,
-				...(model.includes('2.5') ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+				...(model.includes('2.5') && model.toLowerCase().includes('flash') ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
 			}
 		});
 
@@ -66,9 +65,21 @@ export const generateCommitMessage = async (
 		}
 
 		// Extract text from all candidates
-		const messages = response.candidates
-			.filter((candidate: any) => candidate.content?.parts?.[0]?.text)
-			.map((candidate: any) => sanitizeMessage(candidate.content!.parts![0].text!));
+		interface Candidate {
+			content?: {
+				parts?: Array<{
+					text?: string;
+				}>;
+			};
+		}
+
+		interface Response {
+			candidates?: Candidate[];
+		}
+
+		const messages = (response as Response).candidates
+			?.filter((candidate: Candidate) => candidate.content?.parts?.[0]?.text)
+			.map((candidate: Candidate) => sanitizeMessage(candidate.content!.parts![0].text!)) || [];
 
 		if (messages.length === 0) {
 			throw new KnownError('No valid commit messages were generated. Try again.');
