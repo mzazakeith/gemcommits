@@ -54,7 +54,7 @@ export const generateCommitMessage = async (
 			config: {
 				...generationConfig,
 				systemInstruction,
-				...(model.includes('2.5') ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+				...(model.includes('2.5') && model.toLowerCase().includes('flash') ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
 			}
 		});
 
