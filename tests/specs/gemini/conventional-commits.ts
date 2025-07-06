@@ -127,6 +127,13 @@ export default testSuite(({ describe }) => {
 			console.log('Generated message:', commitMessage);
 		});
 
+		/**
+		 * Generates a single commit message for a given git diff using the Gemini model and specified configuration overrides.
+		 *
+		 * @param gitDiff - The git diff string representing code changes
+		 * @param configOverrides - Optional configuration values to override defaults such as locale, commit type, generate count, and max length
+		 * @returns The first generated commit message as a string
+		 */
 		async function runGenerateCommitMessage(
 			gitDiff: string,
 			configOverrides: Partial<ValidConfig> = {}
