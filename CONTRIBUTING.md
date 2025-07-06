@@ -42,14 +42,14 @@ node ./dist/cli.mjs
 
 ## Testing
 
-Testing requires passing in `OPENAI_KEY` as an environment variable:
+Testing requires passing in `GEMINI_KEY` as an environment variable:
 
 ```sh
-OPENAI_KEY=<your OPENAI key> pnpm test
+GEMINI_KEY=<your GEMINI key> pnpm test
 ```
 
 
-You can still run tests that don't require `OPENAI_KEY` but will not test the main functionality:
+You can still run tests that don't require `GEMINI_KEY` but will not test the main functionality:
 ```
 pnpm test
 ```

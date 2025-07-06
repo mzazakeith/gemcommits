@@ -1,6 +1,6 @@
 import { testSuite, expect } from 'manten';
 import {
-	assertOpenAiToken,
+	assertGeminiToken,
 	createFixture,
 	createGit,
 	files,
@@ -15,7 +15,7 @@ export default testSuite(({ describe }) => {
 		return;
 	}
 
-	assertOpenAiToken();
+	assertGeminiToken();
 
 	describe('Commits', async ({ test, describe }) => {
 		test('Excludes files', async () => {

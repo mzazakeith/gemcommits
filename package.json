@@ -26,7 +26,7 @@
 		"prepack": "pnpm build && clean-pkg-json"
 	},
 	"dependencies": {
-		"@dqbd/tiktoken": "^1.0.2"
+		"@google/genai": "^1.8.0"
 	},
 	"devDependencies": {
 		"@clack/prompts": "^0.7.0",
@@ -41,7 +41,6 @@
 		"ini": "^3.0.1",
 		"kolorist": "^1.7.0",
 		"manten": "^0.7.0",
-		"openai": "^3.2.1",
 		"pkgroll": "^1.9.0",
 		"tsx": "^3.12.3",
 		"typescript": "^4.9.5"

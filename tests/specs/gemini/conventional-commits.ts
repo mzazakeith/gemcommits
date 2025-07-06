@@ -1,14 +1,14 @@
 import { expect, testSuite } from 'manten';
-import { generateCommitMessage } from '../../../src/utils/openai.js';
+import { generateCommitMessage } from '../../../src/utils/gemini.js';
 import type { ValidConfig } from '../../../src/utils/config.js';
 import { getDiff } from '../../utils.js';
 
-const { OPENAI_KEY } = process.env;
+const { GEMINI_KEY } = process.env;
 
 export default testSuite(({ describe }) => {
-	if (!OPENAI_KEY) {
+	if (!GEMINI_KEY) {
 		console.warn(
-			'⚠️  process.env.OPENAI_KEY is necessary to run these tests. Skipping...'
+			'⚠️  process.env.GEMINI_KEY is necessary to run these tests. Skipping...'
 		);
 		return;
 	}
@@ -127,6 +127,13 @@ export default testSuite(({ describe }) => {
 			console.log('Generated message:', commitMessage);
 		});
 
+		/**
+		 * Generates a single commit message for a given git diff using the Gemini model and specified configuration overrides.
+		 *
+		 * @param gitDiff - The git diff string representing code changes
+		 * @param configOverrides - Optional configuration values to override defaults such as locale, commit type, generate count, and max length
+		 * @returns The first generated commit message as a string
+		 */
 		async function runGenerateCommitMessage(
 			gitDiff: string,
 			configOverrides: Partial<ValidConfig> = {}
@@ -139,8 +146,8 @@ export default testSuite(({ describe }) => {
 				...configOverrides,
 			} as ValidConfig;
 			const commitMessages = await generateCommitMessage(
-				OPENAI_KEY!,
-				'gpt-3.5-turbo',
+				GEMINI_KEY!,
+				'gemini-2.5-flash',
 				config.locale,
 				gitDiff,
 				config.generate,

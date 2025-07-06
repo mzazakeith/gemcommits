@@ -59,17 +59,17 @@ export const createFixture = async (source?: string | FileTree) => {
 };
 
 export const files = Object.freeze({
-	'.aicommits': `OPENAI_KEY=${process.env.OPENAI_KEY}`,
+	'.aicommits': `GEMINI_KEY=${process.env.GEMINI_KEY}`,
 	'data.json': Array.from(
 		{ length: 10 },
 		(_, i) => `${i}. Lorem ipsum dolor sit amet`
 	).join('\n'),
 });
 
-export const assertOpenAiToken = () => {
-	if (!process.env.OPENAI_KEY) {
+export const assertGeminiToken = () => {
+	if (!process.env.GEMINI_KEY) {
 		throw new Error(
-			'⚠️  process.env.OPENAI_KEY is necessary to run these tests. Skipping...'
+			'⚠️  process.env.GEMINI_KEY is necessary to run these tests. Skipping...'
 		);
 	}
 };
