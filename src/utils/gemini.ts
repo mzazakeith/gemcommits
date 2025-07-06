@@ -33,7 +33,7 @@ export const generateCommitMessage = async (
 		const generationConfig = {
 			temperature: 0.7,
 			topP: 1,
-			maxOutputTokens: Math.min(maxLength + 10, 100), // Force short responses
+			maxOutputTokens: 200,
 			candidateCount: completions,
 		};
 
