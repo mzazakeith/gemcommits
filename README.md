@@ -1,8 +1,8 @@
 <div align="center">
-  <!-- <div>
+  <div>
     <img src=".github/screenshot.png" alt="Gem Commits"/>
     <h1 align="center">Gem Commits</h1>
-  </div> -->
+  </div>
 	<p>A CLI that writes your Git commit messages for you with AI. Never write a commit message again. This is a fork of <a href="https://github.com/Nutlope/aicommits">aicommits</a>, which was modified to use Gemini instead of OpenAI. Huge thanks go to them for open-sourcing their work.</p>
 	<!-- <a href="https://www.npmjs.com/package/gemcommits"><img src="https://img.shields.io/npm/v/aicommits" alt="Current version"></a> -->
 </div>
