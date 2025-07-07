@@ -1,8 +1,9 @@
 name: Release
+# This workflow is not functional at the moment and will be adjusted in the future
 
 on:
   push:
-    branches: [main]
+    branches: [release]
 
 jobs:
   release:
