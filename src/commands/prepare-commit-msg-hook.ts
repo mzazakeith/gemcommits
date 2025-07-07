@@ -47,8 +47,7 @@ export default () =>
 				config.generate,
 				config['max-length'],
 				config.type,
-				config.timeout,
-				config.proxy
+				config.timeout
 			);
 		} finally {
 			s.stop('Changes analyzed');
