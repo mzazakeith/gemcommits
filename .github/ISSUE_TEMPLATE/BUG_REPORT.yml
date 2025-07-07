@@ -18,11 +18,11 @@ body:
       required: true
   - type: input
     attributes:
-      label: aicommits version
+      label: gemcommits version
       description: |
         Run and paste the output of:
         ```sh
-        aicommits --version
+        gemcommits --version
         ```
       placeholder: v0.0.0
     validations:

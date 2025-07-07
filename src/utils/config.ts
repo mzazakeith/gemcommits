@@ -23,7 +23,7 @@ const configParsers = {
 	GEMINI_KEY(key?: string) {
 		if (!key) {
 			throw new KnownError(
-				'Please set your Gemini API key via `aicommits config set GEMINI_KEY=<your token>`'
+				'Please set your Gemini API key via `gemcommits config set GEMINI_KEY=<your token>`'
 			);
 		}
 		parseAssert('GEMINI_KEY', key.length > 0, 'Cannot be empty');
@@ -142,7 +142,7 @@ export type ValidConfig = {
 	[Key in ConfigKeys]: ReturnType<(typeof configParsers)[Key]>;
 };
 
-const configPath = path.join(os.homedir(), '.aicommits');
+const configPath = path.join(os.homedir(), '.gemcommits');
 
 const readConfigFile = async (): Promise<RawConfig> => {
 	const configExists = await fileExists(configPath);

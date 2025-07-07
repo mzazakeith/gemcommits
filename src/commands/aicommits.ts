@@ -25,7 +25,7 @@ export default async (
 	rawArgv: string[]
 ) =>
 	(async () => {
-		intro(bgCyan(black(' aicommits ')));
+		intro(bgCyan(black(' gemcommits ')));
 		await assertGitRepo();
 
 		const detectingFiles = spinner();
@@ -72,8 +72,7 @@ export default async (
 				config.generate,
 				config['max-length'],
 				config.type,
-				config.timeout,
-				config.proxy
+				config.timeout
 			);
 		} finally {
 			s.stop('Changes analyzed');

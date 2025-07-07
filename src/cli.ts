@@ -9,7 +9,7 @@ const rawArgv = process.argv.slice(2);
 
 cli(
 	{
-		name: 'aicommits',
+		name: 'gemcommits',
 
 		version,
 

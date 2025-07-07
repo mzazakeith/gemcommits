@@ -75,7 +75,7 @@ export default testSuite(({ describe }) => {
 		test('Generated commit message must be under 20 characters', async () => {
 			const { fixture, aicommits } = await createFixture({
 				...files,
-				'.aicommits': `${files['.aicommits']}\nmax-length=20`,
+				'.gemcommits': `${files['.gemcommits']}\nmax-length=20`,
 			});
 
 			const git = await createGit(fixture.path);
@@ -116,7 +116,7 @@ export default testSuite(({ describe }) => {
 			await fixture.writeFile('data.json', 'Test');
 
 			const statusBefore = await git('status', ['--short']);
-			expect(statusBefore.stdout).toBe(' M data.json\n?? .aicommits');
+			expect(statusBefore.stdout).toBe(' M data.json\n?? .gemcommits');
 
 			const committing = aicommits(['--all']);
 			committing.stdout!.on('data', (buffer: Buffer) => {
@@ -130,7 +130,7 @@ export default testSuite(({ describe }) => {
 			await committing;
 
 			const statusAfter = await git('status', ['--short']);
-			expect(statusAfter.stdout).toBe('?? .aicommits');
+			expect(statusAfter.stdout).toBe('?? .gemcommits');
 
 			const { stdout: commitMessage } = await git('log', [
 				'-n1',
@@ -150,7 +150,7 @@ export default testSuite(({ describe }) => {
 		}) => {
 			const { fixture, aicommits } = await createFixture({
 				...files,
-				'.aicommits': `${files['.aicommits']}\ngenerate=4`,
+				'.gemcommits': `${files['.gemcommits']}\ngenerate=4`,
 			});
 			const git = await createGit(fixture.path);
 
@@ -200,7 +200,7 @@ export default testSuite(({ describe }) => {
 
 			const { fixture, aicommits } = await createFixture({
 				...files,
-				'.aicommits': `${files['.aicommits']}\nlocale=ja`,
+				'.gemcommits': `${files['.gemcommits']}\nlocale=ja`,
 			});
 			const git = await createGit(fixture.path);
 
@@ -278,7 +278,7 @@ export default testSuite(({ describe }) => {
 					/(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test):\s/;
 				const { fixture, aicommits } = await createFixture({
 					...files,
-					'.aicommits': `${files['.aicommits']}\ntype=conventional`,
+					'.gemcommits': `${files['.gemcommits']}\ntype=conventional`,
 				});
 				const git = await createGit(fixture.path);
 
@@ -314,7 +314,7 @@ export default testSuite(({ describe }) => {
 					/(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test):\s/;
 				const { fixture, aicommits } = await createFixture({
 					...files,
-					'.aicommits': `${files['.aicommits']}\ntype=other`,
+					'.gemcommits': `${files['.gemcommits']}\ntype=other`,
 				});
 				const git = await createGit(fixture.path);
 
@@ -351,7 +351,7 @@ export default testSuite(({ describe }) => {
 					/(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test):\s/;
 				const { fixture, aicommits } = await createFixture({
 					...files,
-					'.aicommits': `${files['.aicommits']}\ntype=conventional`,
+					'.gemcommits': `${files['.gemcommits']}\ntype=conventional`,
 				});
 				const git = await createGit(fixture.path);
 
@@ -387,7 +387,7 @@ export default testSuite(({ describe }) => {
 			test('Fails on invalid proxy', async () => {
 				const { fixture, aicommits } = await createFixture({
 					...files,
-					'.aicommits': `${files['.aicommits']}\nproxy=http://localhost:1234`,
+					'.gemcommits': `${files['.gemcommits']}\nproxy=http://localhost:1234`,
 				});
 				const git = await createGit(fixture.path);
 
@@ -416,7 +416,7 @@ export default testSuite(({ describe }) => {
 			test('Connects with config', async () => {
 				const { fixture, aicommits } = await createFixture({
 					...files,
-					'.aicommits': `${files['.aicommits']}\nproxy=http://localhost:8888`,
+					'.gemcommits': `${files['.gemcommits']}\nproxy=http://localhost:8888`,
 				});
 				const git = await createGit(fixture.path);
 

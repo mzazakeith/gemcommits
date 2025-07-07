@@ -6,7 +6,7 @@ import { createFixture } from '../utils.js';
 export default testSuite(({ describe }) => {
 	describe('config', async ({ test, describe }) => {
 		const { fixture, aicommits } = await createFixture();
-		const configPath = path.join(fixture.path, '.aicommits');
+		const configPath = path.join(fixture.path, '.gemcommits');
 		const geminiToken = 'GEMINI_KEY=test-api-key';
 
 		test('set unknown config file', async () => {

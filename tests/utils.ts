@@ -59,7 +59,7 @@ export const createFixture = async (source?: string | FileTree) => {
 };
 
 export const files = Object.freeze({
-	'.aicommits': `GEMINI_KEY=${process.env.GEMINI_KEY}`,
+	'.gemcommits': `GEMINI_KEY=${process.env.GEMINI_KEY}`,
 	'data.json': Array.from(
 		{ length: 10 },
 		(_, i) => `${i}. Lorem ipsum dolor sit amet`

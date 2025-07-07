@@ -27,7 +27,7 @@ export default () =>
 			return;
 		}
 
-		intro(bgCyan(black(' aicommits ')));
+		intro(bgCyan(black(' gemcommits ')));
 
 		const { env } = process;
 		const config = await getConfig({
