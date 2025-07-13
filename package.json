@@ -6,7 +6,8 @@
     "ai",
     "git",
     "commit",
-    "gemini"
+    "gemini",
+    "auto-commit"
   ],
   "license": "MIT",
   "repository": "mzazakeith/gemcommits",
