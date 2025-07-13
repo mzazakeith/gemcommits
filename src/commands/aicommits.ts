@@ -22,47 +22,48 @@ export default async (
 	excludeFiles: string[],
 	stageAll: boolean,
 	commitType: string | undefined,
+	autoAccept: boolean | undefined,
 	rawArgv: string[]
 ) =>
 	(async () => {
-		intro(bgCyan(black(' gemcommits ')));
-		await assertGitRepo();
+		intro(bgCyan(black(' gemcommits ')))
+		await assertGitRepo()
 
-		const detectingFiles = spinner();
+		const detectingFiles = spinner()
 
 		if (stageAll) {
 			// This should be equivalent behavior to `git commit --all`
-			await execa('git', ['add', '--update']);
+			await execa('git', ['add', '--update'])
 		}
 
-		detectingFiles.start('Detecting staged files');
-		const staged = await getStagedDiff(excludeFiles);
+		detectingFiles.start('Detecting staged files')
+		const staged = await getStagedDiff(excludeFiles)
 
 		if (!staged) {
-			detectingFiles.stop('Detecting staged files');
+			detectingFiles.stop('Detecting staged files')
 			throw new KnownError(
 				'No staged changes found. Stage your changes manually, or automatically stage all changes with the `--all` flag.'
-			);
+			)
 		}
 
 		detectingFiles.stop(
 			`${getDetectedMessage(staged.files)}:\n${staged.files
 				.map((file) => `     ${file}`)
 				.join('\n')}`
-		);
+		)
 
-		const { env } = process;
+		const { env } = process
 		const config = await getConfig({
 			GEMINI_KEY: env.GEMINI_KEY || env.GEMINI_API_KEY,
 			proxy:
 				env.https_proxy || env.HTTPS_PROXY || env.http_proxy || env.HTTP_PROXY,
 			generate: generate?.toString(),
 			type: commitType?.toString(),
-		});
+		})
 
-		const s = spinner();
-		s.start('The AI is analyzing your changes');
-		let messages: string[];
+		const s = spinner()
+		s.start('The AI is analyzing your changes')
+		let messages: string[]
 		try {
 			messages = await generateCommitMessage(
 				config.GEMINI_KEY,
@@ -73,39 +74,42 @@ export default async (
 				config['max-length'],
 				config.type,
 				config.timeout
-			);
+			)
 		} finally {
-			s.stop('Changes analyzed');
+			s.stop('Changes analyzed')
 		}
 
 		if (messages.length === 0) {
-			throw new KnownError('No commit messages were generated. Try again.');
+			throw new KnownError('No commit messages were generated. Try again.')
 		}
 
-		let message: string;
-		if (messages.length === 1) {
-			[message] = messages;
+		let message: string
+		if (autoAccept) {
+			[message] = messages
+		} else if (messages.length === 1) {
+			[message] = messages
 			const confirmed = await confirm({
 				message: `Use this commit message?\n\n   ${message}\n`,
-			});
+			})
 
 			if (!confirmed || isCancel(confirmed)) {
-				outro('Commit cancelled');
-				return;
+				outro('Commit cancelled')
+				return
 			}
 		} else {
 			const selected = await select({
 				message: `Pick a commit message to use: ${dim('(Ctrl+c to exit)')}`,
 				options: messages.map((value) => ({ label: value, value })),
-			});
+			})
 
 			if (isCancel(selected)) {
-				outro('Commit cancelled');
-				return;
+				outro('Commit cancelled')
+				return
 			}
 
-			message = selected as string;
+			message = selected as string
 		}
+
 
 		await execa('git', ['commit', '-m', message, ...rawArgv]);
 
