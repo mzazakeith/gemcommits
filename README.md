@@ -4,7 +4,7 @@
     <h1 align="center">Gem Commits</h1>
   </div>
 	<p>A CLI that writes your Git commit messages for you with AI. Never write a commit message again. This is a fork of <a href="https://github.com/Nutlope/aicommits">aicommits</a>, which was modified to use Gemini instead of OpenAI. Huge thanks go to them for open-sourcing their work.</p>
-	<!-- <a href="https://www.npmjs.com/package/gemcommits"><img src="https://img.shields.io/npm/v/aicommits" alt="Current version"></a> -->
+	<a href="https://www.npmjs.com/package/gemcommits"><img src="https://img.shields.io/npm/v/gemcommits" alt="Current version"></a>
 </div>
 
 ---
@@ -65,6 +65,16 @@ gemcommits --all # or -a
 ```
 
 > 👉 **Tip:** Use the `gemc` alias if `gemcommits` is too long for you.
+
+#### Auto-accepting the commit message
+
+To automatically accept the first generated commit message without any interactive prompt, you can use the `--yes` flag:
+
+```sh
+gemcommits --yes # or -y
+```
+
+> **Note:** When using `--yes`, the committed message will be displayed in the CLI output for your reference.
 
 #### Generate multiple recommendations
 

@@ -42,6 +42,13 @@ cli(
 				description: 'Type of commit message to generate',
 				alias: 't',
 			},
+			yes: {
+				type: Boolean,
+				description:
+					'Automatically accept the first generated commit message',
+				alias: 'y',
+				default: false,
+			},
 		},
 
 		commands: [configCommand, hookCommand],
@@ -61,6 +68,7 @@ cli(
 				argv.flags.exclude,
 				argv.flags.all,
 				argv.flags.type,
+				argv.flags.yes,
 				rawArgv
 			);
 		}
