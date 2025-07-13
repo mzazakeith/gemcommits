@@ -113,7 +113,11 @@ export default async (
 
 		await execa('git', ['commit', '-m', message, ...rawArgv]);
 
-		outro(`${green('✔')} Successfully committed!`);
+		if (autoAccept) {
+			outro(`${green('✔')} Successfully committed with message:\n\n   ${message}`);
+		} else {
+			outro(`${green('✔')} Successfully committed!`);
+		}
 	})().catch((error) => {
 		outro(`${red('✖')} ${error.message}`);
 		handleCliError(error);
