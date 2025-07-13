@@ -74,6 +74,8 @@ To automatically accept the first generated commit message without any interacti
 gemcommits --yes # or -y
 ```
 
+> **Note:** When using `--yes`, the committed message will be displayed in the CLI output for your reference.
+
 #### Generate multiple recommendations
 
 Sometimes the recommended commit message isn't the best so you want it to generate a few to pick from. You can generate multiple commit messages at once by passing in the `--generate <i>` flag, where 'i' is the number of generated messages:
