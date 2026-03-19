@@ -86,6 +86,9 @@ const configParsers = {
 
 		// Validate that it's a supported Gemini model
 		const supportedModels = [
+			'gemini-3.1-pro-preview',
+			'gemini-3.1-flash-lite-preview',
+			'gemini-3-flash-preview',
 			'gemini-2.5-flash',
 			'gemini-2.5-pro',
 			'gemini-1.5-flash',

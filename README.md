@@ -200,12 +200,15 @@ Note, this will use more tokens as it generates more results.
 Default: `gemini-2.5-flash`
 
 The Gemini model to use. Supported models include:
+- `gemini-3.1-pro-preview` - Gemini 3.1 Pro Preview (State-of-the-art)
+- `gemini-3.1-flash-lite-preview` - Gemini 3.1 Flash Lite Preview (High-volume)
+- `gemini-3-flash-preview` - Gemini 3 Flash Preview (Fast and capable)
 - `gemini-2.5-flash` (default) - Fast and efficient
 - `gemini-2.5-pro` - More capable but slower
 - `gemini-1.5-flash` - Previous generation fast model
 - `gemini-1.5-pro` - Previous generation capable model
 
-> Tip: `gemini-2.5-pro` provides more sophisticated code analysis but may be slower and more expensive than `gemini-2.5-flash`.
+> Tip: `gemini-3.1-pro-preview` provides state-of-the-art reasoning but may be slower than Flash models.
 
 #### timeout
 

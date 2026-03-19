@@ -55,6 +55,7 @@ export const generateCommitMessage = async (
 				...generationConfig,
 				systemInstruction,
 				...(model.includes('2.5') && model.toLowerCase().includes('flash') ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+				...(model.startsWith('gemini-3') ? { thinkingConfig: { thinkingLevel: 'minimal' } } : {}),
 			}
 		});
 
