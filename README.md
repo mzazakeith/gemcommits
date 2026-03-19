@@ -205,8 +205,6 @@ The Gemini model to use. Supported models include:
 - `gemini-3-flash-preview` - Gemini 3 Flash Preview (Fast and capable)
 - `gemini-2.5-flash` (default) - Fast and efficient
 - `gemini-2.5-pro` - More capable but slower
-- `gemini-1.5-flash` - Previous generation fast model
-- `gemini-1.5-pro` - Previous generation capable model
 
 > Tip: `gemini-3.1-pro-preview` provides state-of-the-art reasoning but may be slower than Flash models.
 
